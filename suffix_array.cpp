@@ -3,6 +3,7 @@
 StringHandler::StringHandler(const std::string& string) {
 	string_ = string;
 	suffix_array_ = BuildSuffixArray(string);
+	positions_ = BuiltInverseArrayForSuffix(suffix_array_);
 }
 
 std::vector<int> StringHandler::BuildSuffixArray(const std::string& string) const {
@@ -10,6 +11,8 @@ std::vector<int> StringHandler::BuildSuffixArray(const std::string& string) cons
 	// Производится сортировка перестановок данной строки с символом '\0' на конце
 	std::vector<int> suffix_array(string.size());
 	std::vector<int> order_of_permutations = SortCyclicPermutationsOfString(string + '\0');
+	// Первый элемент массива order_of_permutations не несет никакой информации, т.к. соответствует символу '\0'
+	std::copy(order_of_permutations.begin() + 1, order_of_permutations.end(), suffix_array.begin());
 	return suffix_array;
 }
 
@@ -82,4 +85,33 @@ std::vector<int> StringHandler::SortCyclicPermutationsOfString(const std::string
 	std::vector<int> result(string.size()); // то, что возвратит функция
 	std::copy(places.begin(), places.begin() + string.size(), result.begin());
 	return result;
+}
+
+std::vector<int> StringHandler::BuiltInverseArrayForSuffix(const std::vector<int> suffix_array) const {
+	// Строим массив, обратный к суффиксному, т.е. отвечающий на вопрос:
+	// "Какую префикс-функцию имеет k-ый суффикс слова?" = "На какой позиции стоит k-ый суффикс массива?"
+	std::vector<int> positions(suffix_array.size());
+	for (int i = 0; i < suffix_array.size(); ++i) {
+		positions[suffix_array[i]] = i;
+	}
+	return positions;
+}
+
+std::vector<int> StringHandler::BuiltLongestCommonPrefixArray() const {
+	// Для эффективного построения массива с длинами наибольших общих префиксов используем алгоритм Касаи (O(n))
+	// 
+	std::vector<int> longest_common_prefix(string_.size());
+	longest_common_prefix[0] = 0; // у нулевого суффикса нет предыдущего
+	int k = 0;
+	for (int i = 0; i < string_.size(); ++i) {
+		if (k > 0) {
+			--k;
+		}
+		if (positions_[i] == string_.size() - 1) {
+			longest_common_prefix[string_.size() - 1] = -1;
+			k = 0;
+		} else {
+
+		}
+	}
 }
