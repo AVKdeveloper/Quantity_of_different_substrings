@@ -1,5 +1,10 @@
+// Ёта программа сначала строит суффисный массив дл€ заданнаго слова, затем
+// —уффиксный массив строим за O(nlogn), сортиру€ циклические перестановки слова, состо€щего 
+// из заданного слова и нового уникального символа, который меньше всех других символов('\0').
+
 #include <fstream>
 #include <string>
+#include <vector>
 #include "suffix_array.h"
 
 int main() {
@@ -9,6 +14,7 @@ int main() {
 	file >> string;
 	file.close();
 	file.open("output.txt", std::fstream::out);
+	std::vector<int> result_of_sorting = SortCyclicPermutationsOfString(string);
 
 	return 0;
 }
