@@ -14,7 +14,7 @@ int main() {
 	file >> string;
 	file.close();
 	file.open("output.txt", std::fstream::out);
-	std::vector<int> result_of_sorting = SortCyclicPermutationsOfString(string);
+	StringHandler string_handler(string);
 
 	return 0;
 }
