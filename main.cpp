@@ -14,8 +14,10 @@ int main() {
 	std::string string;
 	file >> string;
 	file.close();
+	StringHandler string_handler(string);
+	int quantity_of_different_substrings = string_handler.QuantityOfDifferentSubstrings();
 	file.open("output.txt", std::fstream::out);
-	StringHandler string_handler(string + '$');
-
+	file << quantity_of_different_substrings;
+	file.close();
 	return 0;
 }

@@ -16,8 +16,9 @@ public:
 	StringHandler(const std::string& string);
 	std::vector<int> BuildSuffixArray(const std::string& string) const;
 	std::vector<int> SortCyclicPermutationsOfString(const std::string& string) const;
-	std::vector<int> BuiltInverseArrayForSuffix(const std::vector<int> suffix_array) const;
-	std::vector<int> BuiltLongestCommonPrefixArray() const;
+	std::vector<int> BuildInverseArrayForSuffix(const std::vector<int> suffix_array) const;
+	std::vector<int> BuildLongestCommonPrefixArray() const;
+	int QuantityOfDifferentSubstrings() const;
 };
 
 
